@@ -9,14 +9,16 @@
         var person = {
             first_name: "Peter",
             last_name: "Hansen",
-            dob: "241289",
+            dob: "250188",
             gender: "male"
         };
 
         generateCpr.setGender(person.gender);
         generateCpr.setDob(person.dob);
-        generateCpr.recursiveSearch(0, 0);
-        console.log(generateCpr.getCprList());
+        generateCpr.recursiveSearch();
+        var cprList = generateCpr.getCprList();
+        console.log(cprList[57]);
+        console.log(cprList.length);
       </script>
   </head>
   <body>

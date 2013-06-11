@@ -27,22 +27,24 @@ var generateCpr = {
     return this.cprList;
   },
 
-  recursiveSearch: function(number, depth) {
-    number = number || "";
+  recursiveSearch: function(depth, partialCpr) {
+    partialCpr = partialCpr || "";
     depth = depth || 0;
     var i = 0;
 
     while (i < this.possibilities[depth].length) {
 
-      // number is less than for digits
-      if (depth + 1 < this.possibilities.length) {
-        this.recursiveSearch(number + this.possibilities[depth][i], depth + 1);
+      // partialCpr is less than 3 digits
+      if (depth < 3) {
+        var nextpartialCpr = partialCpr + "" + this.possibilities[depth][i];
+        var nextDepth = depth + 1;
+        this.recursiveSearch(nextDepth, nextpartialCpr);
 
-      // number is four digits
+      // partialCpr is 3 digits. Add the last digit
       } else {
-        var cpr = number + this.possibilities[depth][i];
+        var cpr = partialCpr + "" + this.possibilities[3][i];
 
-        // cpr number is valid
+        // cpr partialCpr is valid
         if (this.validateCPR(cpr)) {
           this.cprList.push(cpr);
         }
