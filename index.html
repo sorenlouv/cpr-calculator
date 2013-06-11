@@ -1,0 +1,24 @@
+<html>
+  <head>
+      <meta http-equiv="content-type" content="text/php; charset=utf-8" />
+      <script type="text/javascript" src="find_cpr.js"></script>
+
+      <title>CPR numre</title>
+      <script type="text/javascript">
+
+        var person = {
+            first_name: "Peter",
+            last_name: "Hansen",
+            dob: "241289",
+            gender: "male"
+        };
+
+        generateCpr.setGender(person.gender);
+        generateCpr.setDob(person.dob);
+        generateCpr.recursiveSearch(0, 0);
+        console.log(generateCpr.getCprList());
+      </script>
+  </head>
+  <body>
+  </body>
+</html>
