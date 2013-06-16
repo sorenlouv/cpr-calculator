@@ -2,9 +2,11 @@ var generateCpr = {
 
   cprList: [],
   dob: 0,
+  gender: "",
 
   possibilities: [
     [1, 2, 3, 0], // Omitting: 4, 9
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   ],
@@ -22,18 +24,26 @@ var generateCpr = {
 
   // Set gender ("male", "female" or "")
   setGender: function(gender){
-    if(gender == "male"){
-      this.possibilities[3] = [1, 3, 5, 7, 9];
-    }else if(gender == "female"){
-      this.possibilities[3] = [0, 2, 4, 6, 8];
-    }else{
-      this.possibilities[3] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    }
+    this.gender = gender;
+    this.updateLastDigitPossibilities(gender);
   },
 
   // Set Date of Birth (Format: 241289 for 24/12-1989)
   setDob: function(dob){
     this.dob = dob;
+  },
+
+  // Update possibilities for last digit in CPR-number
+  updateLastDigitPossibilities: function(gender){
+
+    // uneven numbers for men
+    if(gender == "male"){
+      this.possibilities[3] = [1, 3, 5, 7, 9];
+
+    // even numbers for women
+    }else if(gender == "female"){
+      this.possibilities[3] = [0, 2, 4, 6, 8];
+    }
   },
 
   // Create all possible cpr-numbers
