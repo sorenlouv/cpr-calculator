@@ -4,10 +4,20 @@ var generateCpr = {
   dob: 0,
 
   possibilities: [
-    [0, 1, 2, 3, 4, 9],
+    [1, 2, 3, 0], // Omitting: 4, 9
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   ],
+
+  init: function(dob, gender){
+    this.cprList = [];
+
+    this.setDob(dob);
+    this.setGender(gender);
+    this.recursiveSearch();
+
+    return this.cprList;
+  },
 
   setGender: function(gender){
     if(gender == "male"){
@@ -21,10 +31,6 @@ var generateCpr = {
 
   setDob: function(dob){
     this.dob = dob;
-  },
-
-  getCprList: function(){
-    return this.cprList;
   },
 
   recursiveSearch: function(depth, partialCpr) {
@@ -55,18 +61,13 @@ var generateCpr = {
 
   validateCPR: function(cpr) {
     var fullcpr = this.dob + cpr;
-    var sum = 0;
     var factors = [4, 3, 2, 7, 6, 5, 4, 3, 2, 1];
-    var i = 0;
 
-    while (i < 10) {
+    for (var i = 0, sum = 0; i < factors.length; i++) {
       sum += fullcpr.substring(i, i + 1) * factors[i];
-      i++;
     }
-    if ((sum % 11) !== 0) {
-      return false;
-    } else {
-      return true;
-    }
+
+    // pass modulus 11 test?
+    return sum % 11 !== 0 ? false : true;
   }
 };
