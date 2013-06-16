@@ -9,6 +9,7 @@ var generateCpr = {
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   ],
 
+  // initialize
   init: function(dob, gender){
     this.cprList = [];
 
@@ -19,6 +20,7 @@ var generateCpr = {
     return this.cprList;
   },
 
+  // Set gender ("male", "female" or "")
   setGender: function(gender){
     if(gender == "male"){
       this.possibilities[3] = [1, 3, 5, 7, 9];
@@ -29,16 +31,17 @@ var generateCpr = {
     }
   },
 
+  // Set Date of Birth (Format: 241289 for 24/12-1989)
   setDob: function(dob){
     this.dob = dob;
   },
 
+  // Create all possible cpr-numbers
   recursiveSearch: function(depth, partialCpr) {
     partialCpr = partialCpr || "";
     depth = depth || 0;
-    var i = 0;
 
-    while (i < this.possibilities[depth].length) {
+    for (var i = 0; i < this.possibilities[depth].length; i++) {
 
       // partialCpr is less than 3 digits
       if (depth < 3) {
@@ -55,10 +58,10 @@ var generateCpr = {
           this.cprList.push(cpr);
         }
       }
-      i++;
     }
   },
 
+  // modulus 11 test
   validateCPR: function(cpr) {
     var fullcpr = this.dob + cpr;
     var factors = [4, 3, 2, 7, 6, 5, 4, 3, 2, 1];
